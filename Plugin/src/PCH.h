@@ -116,6 +116,7 @@ using namespace REL::literals;
 #include "Plugin.h"
 
 // DKUtil
+#include "DKUtil/Config.hpp"
 #include "DKUtil/Hook.hpp"
 #include "DKUtil/Logger.hpp"
 
@@ -126,16 +127,10 @@ DLLEXPORT constinit auto SFSEPlugin_Version = []() noexcept {
 	data.PluginVersion(Plugin::Version);
 	data.PluginName(Plugin::NAME);
 	data.AuthorName(Plugin::AUTHOR);
-
-	// REL::ID usage instead of REL::Offset
-	//data.UsesAddressLibrary(true);
-	// Version independent signature scanning
-	//data.UsesSigScanning(true);
-
-	// Uses version specific structure definitions
-	//data.IsLayoutDependent(true);
-	//data.HasNoStructUse(true);
-
+	data.UsesAddressLibrary(true);
+	data.UsesSigScanning(false);
+	data.IsLayoutDependent(true);
+	data.HasNoStructUse(false);
 	data.CompatibleVersions({ SFSE::RUNTIME_LATEST });
 
 	return data;
