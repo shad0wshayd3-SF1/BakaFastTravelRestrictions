@@ -1,8 +1,6 @@
 {
     "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
     "name": "bakafasttravelrestrictions",
-    "version-string": "1.0.0",
-    "description": "sfse plugin for starfield",
     "homepage": "https://github.com/shad0wshayd3/BakaFastTravelRestrictions",
     "dependencies": [
         "spdlog",
