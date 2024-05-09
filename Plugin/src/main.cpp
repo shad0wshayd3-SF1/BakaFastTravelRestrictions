@@ -47,13 +47,20 @@ private:
 		static bool OtherEventEnabled(void* a_this, std::uint32_t a_otherEventFlags)
 		{
 			auto result = _OtherEventEnabled(a_this, a_otherEventFlags);
-			if (result) {
-				if (auto PlayerCharacter = RE::PlayerCharacter::GetSingleton()) {
-					if (*Config::General::bNoFastTravelInInteriors) {
-						if (!PlayerCharacter->GetSpaceship()) {
-							if (auto parentCell = RE::stl::adjust_pointer<void*>(PlayerCharacter, 0xA8)) {
-								if (auto cellFlags = RE::stl::adjust_pointer<std::uint32_t>(*parentCell, 0x40)) {
-									if ((*cellFlags) & 1) {
+			if (result)
+			{
+				if (auto PlayerCharacter = RE::PlayerCharacter::GetSingleton())
+				{
+					if (*Config::General::bNoFastTravelInInteriors)
+					{
+						if (!PlayerCharacter->GetSpaceship())
+						{
+							if (auto parentCell = RE::stl::adjust_pointer<void*>(PlayerCharacter, 0xA8))
+							{
+								if (auto cellFlags = RE::stl::adjust_pointer<std::uint32_t>(*parentCell, 0x40))
+								{
+									if ((*cellFlags) & 1)
+									{
 										return false;
 									}
 								}
@@ -61,8 +68,10 @@ private:
 						}
 					}
 
-					if (*Config::General::bNoFastTravelOutsideShip) {
-						if (!PlayerCharacter->GetSpaceship()) {
+					if (*Config::General::bNoFastTravelOutsideShip)
+					{
+						if (!PlayerCharacter->GetSpaceship())
+						{
 							return false;
 						}
 					}
@@ -80,12 +89,13 @@ namespace
 {
 	void MessageCallback(SFSE::MessagingInterface::Message* a_msg) noexcept
 	{
-		switch (a_msg->type) {
+		switch (a_msg->type)
+		{
 		case SFSE::MessagingInterface::kPostLoad:
-			{
-				Hooks::Install();
-				break;
-			}
+		{
+			Hooks::Install();
+			break;
+		}
 		default:
 			break;
 		}

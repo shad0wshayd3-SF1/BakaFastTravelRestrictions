@@ -121,7 +121,8 @@ using namespace REL::literals;
 #include "DKUtil/Logger.hpp"
 
 // SFSEPlugin_Version
-DLLEXPORT constinit auto SFSEPlugin_Version = []() noexcept {
+DLLEXPORT constinit auto SFSEPlugin_Version = []() noexcept
+{
 	SFSE::PluginVersionData data{};
 
 	data.PluginVersion(Plugin::Version);
