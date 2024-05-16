@@ -1,8 +1,3 @@
-/* 
- * https://github.com/Starfield-Reverse-Engineering/CommonLibSF
- * This plugin template links against CommonLibSF
- */
-
 class Config
 {
 public:
@@ -109,6 +104,7 @@ DLLEXPORT bool SFSEAPI SFSEPlugin_Load(const SFSE::LoadInterface* a_sfse)
 #endif
 
 	SFSE::Init(a_sfse, false);
+
 	DKUtil::Logger::Init(Plugin::NAME, std::to_string(Plugin::Version));
 	INFO("{} v{} loaded", Plugin::NAME, Plugin::Version);
 
