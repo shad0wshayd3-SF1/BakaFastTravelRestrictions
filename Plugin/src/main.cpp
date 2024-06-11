@@ -39,38 +39,48 @@ private:
 		}
 
 	private:
+		class detail
+		{
+		public:
+			static void* GetSpaceship(void* a_this)
+			{
+				using func_t = decltype(&detail::GetSpaceship);
+				static REL::Relocation<func_t> func{ REL::ID(173851) };
+				return func(a_this);
+			}
+		};
+
 		static bool OtherEventEnabled(void* a_this, std::uint32_t a_otherEventFlags)
 		{
 			auto result = _OtherEventEnabled(a_this, a_otherEventFlags);
-			if (result)
+			if (!result)
 			{
-				if (auto PlayerCharacter = RE::PlayerCharacter::GetSingleton())
-				{
-					if (*Config::General::bNoFastTravelInInteriors)
-					{
-						if (!PlayerCharacter->GetSpaceship())
-						{
-							if (auto parentCell = RE::stl::adjust_pointer<void*>(PlayerCharacter, 0xA8))
-							{
-								if (auto cellFlags = RE::stl::adjust_pointer<std::uint32_t>(*parentCell, 0x40))
-								{
-									if ((*cellFlags) & 1)
-									{
-										return false;
-									}
-								}
-							}
-						}
-					}
+				return result;
+			}
 
-					if (*Config::General::bNoFastTravelOutsideShip)
+			static REL::Relocation<void**> PlayerCharacter{ REL::ID(865059) };
+			if (detail::GetSpaceship(*PlayerCharacter))
+			{
+				return result;
+			}
+
+			if (*Config::General::bNoFastTravelInInteriors)
+			{
+				if (auto ParentCell = RE::stl::adjust_pointer<void*>(*PlayerCharacter, 0xA8))
+				{
+					if (auto CellFlags = RE::stl::adjust_pointer<std::uint32_t>(*ParentCell, 0x40))
 					{
-						if (!PlayerCharacter->GetSpaceship())
+						if ((*CellFlags) & 1)
 						{
 							return false;
 						}
 					}
 				}
+			}
+
+			if (*Config::General::bNoFastTravelOutsideShip)
+			{
+				return false;
 			}
 
 			return result;
